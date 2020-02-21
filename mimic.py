@@ -46,7 +46,7 @@ columns, so the output looks better.
 import random
 import sys
 
-__author__ = "???"
+__author__ = "HyperionCG"
 
 
 def create_mimic_dict(filename):
@@ -68,6 +68,19 @@ def create_mimic_dict(filename):
             }
     """
     # +++your code here+++
+    mimicDict = {}
+    with open(filename, 'r') as file:
+        for line in file:
+            words = line.split()
+            prev = ''
+            for word in words:
+                if not prev in mimicDict:
+                    mimicDict[prev] = [word]
+                else:
+                    mimicDict[prev].append(word)
+                previous = word
+    return mimicDict
+
 
 
 def print_mimic(mimic_dict, start_word):
@@ -78,7 +91,12 @@ def print_mimic(mimic_dict, start_word):
         - Repeat this process 200 times
     """
     # +++your code here+++
-    pass
+    for nextList in range(200):
+        print(start_word),
+        nextList = mimic_dict.get(start_word)
+        if not nextList:
+            nextList = mimic_dict['']
+        start_word = random.choice(nextList)
 
 
 # Provided main(), calls mimic_dict() and mimic()
